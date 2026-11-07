@@ -5,17 +5,16 @@
   \item 同态、同构与等价关系
 \end{introduction}
 
-
-
 \section{集合}
 % >>> AUTO-GENERATED: 1.1 — DO NOT EDIT MANUALLY <<<
-\begin{definition}{集合、子集与幂集}{}
-集合是确定对象的总体，其对象称为元素。$x\in A$ 表示 $x$ 是 $A$ 的元素。若 $A$ 的每个元素都属于 $B$，记 $A\subseteq B$；若另有 $A\ne B$，称 $A$ 为 $B$ 的真子集，记 $A\subsetneq B$。没有元素的集合记为 $\varnothing$。$A$ 的所有子集组成的集合称为幂集，记为 $\mathcal P(A)$。
+第一节的内容已经在集合论当中学过，这里只需要作简单回顾即可，不需要过多关注
+\begin{definition}{集合与子集}{}
+集合是确定对象的总体，其对象称为元素。$x\in A$ 表示 $x$ 是 $A$ 的元素。没有元素的集合记为 $\varnothing$。若 $A$ 的每个元素都属于 $B$，记 $A\subseteq B$；若另有 $A\ne B$，称 $A$ 为 $B$ 的真子集，记 $A\subsetneq B$。$A$ 的所有子集组成的集合称为幂集，记为 $\mathcal P(A)$。
 \end{definition}
 常用列举法 $\{1,3,5\}$ 或描述法 $\{x\in\R:x^2<1\}$ 表示集合。集合中的元素无序且不重复。对任意集合 $A$，有 $\varnothing\subseteq A$，但当 $A=\varnothing$ 时，空集不是 $A$ 的真子集。
 
-\begin{definition}{交、并、差与补}{}
-对集合 $A,B$，定义
+\begin{definition}{集合的运算}{}
+对集合 $A,B$，它们的交、并、差分别为
 \[
  A\cap B=\{x:x\in A\text{ 且 }x\in B\},\quad
  A\cup B=\{x:x\in A\text{ 或 }x\in B\},\quad
@@ -23,13 +22,12 @@
 \]
 若 $A\subseteq U$，则 $A$ 相对于全集 $U$ 的补集为 $A^c=U\setminus A$。
 \end{definition}
-\begin{theorem}{集合运算律与德摩根律}{}
-交、并满足幂等律、交换律和结合律，且
+交、并满足幂等律、交换律和结合律。
+\begin{theorem}{集合运算的分配律}{}
 \[
  A\cap(B\cup C)=(A\cap B)\cup(A\cap C),\qquad
  A\cup(B\cap C)=(A\cup B)\cap(A\cup C).
 \]
-对于同一全集的子集，$(A\cup B)^c=A^c\cap B^c$，$(A\cap B)^c=A^c\cup B^c$。
 \end{theorem}
 \begin{proof}
 逐一比较元素的归属即可。例如，对任意 $x$，
@@ -37,111 +35,166 @@
  x\in A\cap(B\cup C)\iff x\in A\text{ 且 }(x\in B\text{ 或 }x\in C)
  \iff x\in(A\cap B)\cup(A\cap C).
 \]
-同理，$x\notin A\cup B$ 等价于 $x\notin A$ 且 $x\notin B$，得到第一条德摩根律；其余各式以相同方法证明。
+另一条分配律同理可由元素的归属证明。
 \end{proof}
-\begin{example}
-令 $A=\{0,1,2,3\}$，$B=\{0,2,4\}$。则 $A\cap B=\{0,2\}$，$A\cup B=\{0,1,2,3,4\}$，$A\setminus B=\{1,3\}$。
-\end{example}
+\begin{theorem}{德摩根律}{}
+对于同一全集的子集，$(A\cup B)^c=A^c\cap B^c$，$(A\cap B)^c=A^c\cup B^c$。
+\end{theorem}
+\begin{proof}
+$x\notin A\cup B$ 等价于 $x\notin A$ 且 $x\notin B$，得到第一条等式；$x\notin A\cap B$ 等价于 $x\notin A$ 或 $x\notin B$，得到第二条等式。
+\end{proof}
 \begin{example}
 若 $|A|=n$，则 $|\mathcal P(A)|=2^n$。因为构造一个子集时，对 $A$ 的每个元素分别有“选入”和“不选入”两种独立选择，共 $2^n$ 种。
 \end{example}
-\begin{remark}
-由 $A\cap B=A\cap C$ 一般不能推出 $B=C$：取 $A=\{1\}$，$B=\{1,2\}$，$C=\{1,3\}$ 即可。证明集合相等时通常分别证明两个包含关系。
-\end{remark}
 % <<< END AUTO-GENERATED: 1.1 <<<
 
 \section{映射与变换}
 % >>> AUTO-GENERATED: 1.2 — DO NOT EDIT MANUALLY <<<
-\begin{definition}{映射与像、原像}{}
-映射 $f\colon A\to B$ 是这样的对应法则：每个 $x\in A$ 恰有一个像 $f(x)\in B$。$A$ 称为定义域，$B$ 称为陪域。对 $S\subseteq A$、$T\subseteq B$，定义
-\[
- f(S)=\{f(x):x\in S\},\qquad f^{-1}(T)=\{x\in A:f(x)\in T\}.
-\]
-其中 $f(A)$ 是值域。$f^{-1}(T)$ 表示集合的原像，即使 $f$ 不可逆也有定义。
+本节内容重点回顾一下映射的定义，尤其是良定义性，这在后面的证明过程中经常会被漏掉。然后还需要区分一下映射与变换。
+\begin{definition}{映射}{}
+映射 $f\colon A\to B$ 是这样的对应法则：每个 $x\in A$ 恰有一个像 $f(x)\in B$。$A$ 称为定义域，$B$ 称为陪域。
 \end{definition}
+\begin{definition}{像与原像}{}
+设 $f\colon A\to B$，$S\subseteq A$。$S$ 的像是 $f(S)=\{f(x):x\in S\}$；其中 $f(A)$ 是值域。
+设 $f\colon A\to B$，$T\subseteq B$。$T$ 的原像是 $f^{-1}(T)=\{x\in A:f(x)\in T\}$，即使 $f$ 不可逆也有定义。
+\end{definition}
+\begin{remark}
+构造映射时，必须验证每个 $x\in A$ 都有像，而且这个像唯一并属于陪域 $B$。如果输入元素有多种表示方式，还须验证选择不同表示不会改变结果；这常称为验证映射的良定义性。下面的法则依赖有理数的表示方式，因而不是良定义的：
+\end{remark}
 \begin{example}
-$f\colon\Q\to\R$，$f(x)=1/(x-1)$ 不是映射，因为 $x=1$ 没有像。若以 $a/b\in\Q$ 定义 $g(a/b)=a+b$，则该法则也不是映射：$1/2=2/4$，但两种表示给出的值分别为 $3$ 和 $6$。
+$a/b\in\Q$ 定义 $g(a/b)=a+b$，则该法则也不是映射：$1/2=2/4$，但两种表示给出的值分别为 $3$ 和 $6$。
 \end{example}
-\begin{definition}{单射、满射、双射}{}
-映射 $f\colon A\to B$ 称为单射，若 $f(x_1)=f(x_2)$ 蕴含 $x_1=x_2$；称为满射，若对每个 $y\in B$ 存在 $x\in A$ 使 $f(x)=y$，即 $f(A)=B$；既单又满称为双射。
+\begin{definition}{单射、满射与双射}{}
+设 $f\colon A\to B$。
+\begin{enumerate}
+\item 若 $f(x_1)=f(x_2)$ 蕴含 $x_1=x_2$，则 $f$ 是\textbf{单射}。
+\item 若对每个 $y\in B$ 存在 $x\in A$ 使 $f(x)=y$，即 $f(A)=B$，则 $f$ 是\textbf{满射}。
+\item 既是单射又是满射的映射称为\textbf{双射}。
+\end{enumerate}
+\end{definition}
+\begin{definition}{映射相等}{}
+设 $f,g\colon A\to B$。若对每个 $x\in A$ 都有 $f(x)=g(x)$，则称两个映射相等，记为 $f=g$。比较映射时也应确认它们的定义域和陪域一致。
 \end{definition}
 \begin{theorem}{逆映射}{}
 映射 $f\colon A\to B$ 是双射，当且仅当存在映射 $g\colon B\to A$ 满足 $g\circ f=\id_A$ 且 $f\circ g=\id_B$。此时 $g$ 唯一，记作 $f^{-1}$。
 \end{theorem}
 \begin{proof}
-若 $f$ 是双射，对每个 $y\in B$ 存在唯一的 $x\in A$ 使 $f(x)=y$，令 $g(y)=x$ 即满足两个等式。反之，若两个等式成立，则 $f(x_1)=f(x_2)$ 时施加 $g$ 得 $x_1=x_2$，而对任意 $y\in B$ 有 $y=f(g(y))$，故 $f$ 是双射。若 $g,h$ 均满足要求，则 $g=g\circ(f\circ h)=(g\circ f)\circ h=h$。
+必要性：若 $f$ 是双射，对每个 $y\in B$ 存在唯一的 $x\in A$ 使 $f(x)=y$，令 $g(y)=x$ ，就构造出了题目中的两个等式。 \\
+充分性：反之，若两个等式成立，则 $f(x_1)=f(x_2)$ 时复合 $g$ 得 $x_1=x_2$，而对任意 $y\in B$ 有 $y=f(g(y))$，故 $f$ 是双射。若 $g,h$ 均满足要求，则 $g=g\circ(f\circ h)=(g\circ f)\circ h=h$。
 \end{proof}
-\begin{theorem}{等势有限集上的映射}{}
-设 $A,B$ 为有限集且 $|A|=|B|$。对映射 $f\colon A\to B$，单射、满射和双射等价。两个有限集之间存在双射，当且仅当它们的元素个数相等。
+\begin{theorem}{}{}
+两个有限集之间存在双射，当且仅当它们的元素个数相等。
 \end{theorem}
 \begin{proof}
-令 $|A|=|B|=n$。若 $f$ 单射，则 $f(A)$ 含 $n$ 个元素，又 $f(A)\subseteq B$，因此 $f(A)=B$。若 $f$ 满射而不单射，则至少两个不同元素有相同的像，故 $|f(A)|\le n-1$，矛盾。有限集之间有双射必有相同元素个数；反过来将两集合分别列出并逐项对应，即得双射。
+若两个有限集之间有双射，则不同元素的像不同，且每个目标元素都被取到，所以两集合的元素个数相等。反之，若两个集合元素个数有限且相等，将两集合分别列出并逐项对应，即得双射。
+\end{proof}
+\begin{theorem}{等势有限集上的映射}{}
+设 $A,B$ 为有限集且 $|A|=|B|$。对映射 $f\colon A\to B$，单射、满射和双射等价。
+\end{theorem}
+\begin{proof}
+只需证明单射与满射互相推出。令 $|A|=|B|=n$。\\
+单射 $\Rightarrow$ 满射：若 $f$ 单射，则 $f(A)$ 含 $n$ 个元素，又 $f(A)\subseteq B$，因此 $f(A)=B$。\\
+满射 $\Rightarrow$ 单射：若 $f$ 满射而不单射，则至少两个不同元素有相同的像，故 $|f(A)|\le n-1$，矛盾。
 \end{proof}
 \begin{example}
 设 $M_n(F)$ 为数域 $F$ 上的 $n$ 阶矩阵集合，$n\ge1$。秩映射 $A\mapsto\operatorname{rank}(A)$ 从 $M_n(F)$ 到 $\{0,1,\ldots,n\}$ 是满射：对每个 $r$，取对角矩阵 $\operatorname{diag}(\underbrace{1,\ldots,1}_{r},0,\ldots,0)$。它不是单射，例如 $I_n$ 和 $-I_n$ 不同且秩相同。
 \end{example}
-\begin{definition}{合成与变换}{}
-若 $f\colon A\to B$、$g\colon B\to C$，定义 $(g\circ f)(x)=g(f(x))$。集合 $A$ 到自身的映射称为 $A$ 的变换；$\id_A(x)=x$ 称为恒等变换。$n$ 元集合的双射变换也称为 $n$ 次置换。
+\begin{definition}{映射的合成}{}
+若 $f\colon A\to B$、$g\colon B\to C$，其合成定义为 $(g\circ f)(x)=g(f(x))$。
 \end{definition}
+\begin{definition}{变换}{}
+集合 $A$ 到自身的映射称为 $A$ 的变换；其中 $\id_A(x)=x$ 称为恒等变换。$n$ 元集合的双射变换称为 $n$ 次置换。
+\end{definition}
+\begin{remark}
+变换是自身到自身的映射
+\end{remark}
 \begin{theorem}{置换的个数}{}
 一个含 $n$ 个元素的有限集合有 $n!$ 个双射变换，其中 $0!=1$。
 \end{theorem}
 \begin{proof}
-将元素按固定顺序列为 $a_1,\ldots,a_n$。双射变换由像的排列唯一确定：$f(a_1)$ 有 $n$ 种选择，随后依次有 $n-1,\ldots,1$ 种，因此共有 $n!$ 个。空集上恰有一个空映射。
+将元素按固定顺序列为 $a_1,\ldots,a_n$。双射变换由像的排列唯一确定：由全排列不难得到共有 $n!$ 个。空集上恰有一个空映射。
 \end{proof}
-\begin{example}
-在 $\N$ 上，$f(n)=2n$ 是单射但不是满射；交换 $1,2$ 并固定其他元素的变换是双射。无限集上，单射和满射不必等价。
-\end{example}
 % <<< END AUTO-GENERATED: 1.2 <<<
 
 \section{代数运算}
 % >>> AUTO-GENERATED: 1.3 — DO NOT EDIT MANUALLY <<<
+我们从这一节开始进入正题，慢慢抽象：抽象代数研究的是代数系统，而代数系统首先需要在集合上定义一定的代数运算
 \begin{definition}{二元代数运算}{}
-集合 $M$ 上的二元代数运算是映射 $\star\colon M\times M\to M$。因此对每一有序对 $(a,b)\in M\times M$，$a\star b$ 必须存在、唯一且属于 $M$。带有指定运算的集合称为代数系统。
+集合 $M$ 上的二元代数运算是映射 $\circ\colon M\times M\to M$。即对每一有序对 $(a,b)\in M\times M$，$a\circ b=d\in M$ 存在且唯一。
+\end{definition}
+\begin{definition}{代数系统}{}
+带有指定运算的集合称为代数系统。
 \end{definition}
 \begin{example}
-整数集上的普通加法、减法和乘法都是代数运算。整数除法不是：例如 $1/2\notin\Z$；有理数除法也不是 $\Q$ 上的代数运算，因为除数可以是 $0$。在 $\Z$ 上 $a\star b=\sqrt{a^2+b^2}$ 也不封闭：$1\star1=\sqrt2\notin\Z$。
+整数集上的普通加法、减法和乘法都是代数运算。整数除法不是：例如 $1/2\notin\Z$；\\ 
+有理数除法不是 $\Q$ 上的代数运算，因为除数不可以是 $0$。\\
+在 $\Z$ 上 $a\circ b=\sqrt{a^2+b^2}$ 也不封闭：$1\circ1=\sqrt2\notin\Z$。
 \end{example}
 \begin{example}
-在 $\Z$ 上，$a\star b=ab+1$ 和 $a\diamond b=a+b-10$ 均为代数运算。对于数域 $F$ 上的 $n$ 阶矩阵，$A\star B=(\det A)B$ 仍是 $n$ 阶矩阵，故也是代数运算。
+在 $\Z$ 上，$a\circ b=ab+1$ 和 $a\diamond b=a+b-10$ 均为代数运算。\\
+对于数域 $F$ 上的 $n$ 阶矩阵，$A\circ B=(\det A)B$ 仍是 $n$ 阶矩阵，故也是代数运算。
 \end{example}
-记 $T(M)$ 为 $M$ 的全体变换，$S(M)$ 为全体双射变换。映射合成在 $T(M)$ 上封闭；在 $S(M)$ 上也封闭，因为双射的合成仍是双射，且 $(f\circ g)^{-1}=g^{-1}\circ f^{-1}$。恒等变换满足 $\id_M\circ f=f\circ\id_M=f$。
-
+\begin{definition}{变换乘法}{}
+记 $T(M)$ 为 $M$ 的全体变换，$S(M)$ 为全体双射变换。对 $f,g\in T(M)$，它们的乘积定义为合成变换 $f\circ g$，即先作用 $g$，再作用 $f$。
+\end{definition}
+\begin{proposition}{变换乘法的封闭性}{}
+映射合成在 $T(M)$ 上封闭，也在 $S(M)$ 上封闭；恒等变换满足 $\id_M\circ f=f\circ\id_M=f$。
+\end{proposition}
+\begin{proof}
+两个从 $M$ 到 $M$ 的映射合成后仍从 $M$ 到 $M$。如果 $f,g\in S(M)$，那么 $f\circ g$ 是双射，且 $(f\circ g)^{-1}=g^{-1}\circ f^{-1}$。对每个 $x\in M$，$(\id_M\circ f)(x)=f(x)=(f\circ\id_M)(x)$，于是两个等式成立。
+\end{proof}
 \begin{example}
 在 $M=\{1,2,3\}$ 上，令 $f=(1\ 2)$、$g=(2\ 3)$，即分别交换括号中两个元素。按先 $g$ 后 $f$ 的顺序，$f\circ g$ 依次将 $1,2,3$ 映到 $2,3,1$；$g\circ f$ 则依次映到 $3,1,2$。因此变换合成一般不满足交换律。
 \end{example}
-有限集合上的运算可用运算表表示：行对应第一个输入，列对应第二个输入，每个表项必须属于原集合。
+有限集合上的运算可用运算表表示：
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.75\textwidth]{figure/source/chapter01-operation-table.png}
+\caption{有限集合上的运算表。来源：课件《代数运算、运算律》，PDF 阅读器第 9 页，局部截取。}
+\end{figure}
 \begin{theorem}{有限集合上二元运算的个数}{}
 若 $|M|=n\ge1$，则 $M$ 上共有 $n^{n^2}$ 个二元代数运算。
 \end{theorem}
 \begin{proof}
-$M\times M$ 有 $n^2$ 个有序对，每个有序对的运算结果可独立选择 $M$ 中的任意一个元素，因此共有 $n^{n^2}$ 种映射。
+这里可以参照上面那个运算表。$M\times M$ 有 $n^2$ 个有序对，每个有序对的运算结果可独立选择 $M$ 中的任意一个元素，因此共有 $n^{n^2}$ 种映射。
 \end{proof}
 % <<< END AUTO-GENERATED: 1.3 <<<
 
 \section{运算律}
 % >>> AUTO-GENERATED: 1.4 — DO NOT EDIT MANUALLY <<<
-\begin{definition}{结合律、交换律和分配律}{}
-集合 $M$ 上的运算 $\star$ 满足结合律，指对任意 $a,b,c\in M$ 有 $(a\star b)\star c=a\star(b\star c)$；满足交换律，指 $a\star b=b\star a$。若还有运算 $\diamond$，则 $\star$ 对 $\diamond$ 的左、右分配律分别为
-\[
- a\star(b\diamond c)=(a\star b)\diamond(a\star c),\quad
- (b\diamond c)\star a=(b\star a)\diamond(c\star a).
-\]
+\begin{definition}{结合律}{}
+集合 $M$ 上的运算 $\circ$ 满足结合律，指对任意 $a,b,c\in M$ 有 $(a\circ b)\circ c=a\circ(b\circ c)$。
 \end{definition}
 \begin{example}
-在 $\N$ 上定义 $a\star b=ab+1$。它满足交换律，但不满足结合律：取 $a=1,b=1,c=2$，则 $(1\star1)\star2=5$，而 $1\star(1\star2)=4$。
+在 $\N$ 上定义 $a\circ b=ab+1$，则 $(1\circ1)\circ2=5$，而 $1\circ(1\circ2)=4$，故该运算不满足结合律。
 \end{example}
-\begin{theorem}{结合律与有限乘积}{}
-若 $\star$ 满足结合律，则对任意有限个按固定顺序排列的元素，所有合法加括号方式得到相同结果。若还满足交换律，结果也不依赖元素排列顺序。
+\begin{theorem}{广义结合律}{}
+若 $\circ$ 满足结合律，则对任意有限个（至少一个）按固定顺序排列的元素，所有加括号方式得到相同结果。
 \end{theorem}
 \begin{proof}
-将 $n$ 项的右结合形式记为 $R(a_1,\ldots,a_n)$。先证明对任意 $1\le k<n$，
+先规定一种标准乘积，用递归方式从左向右计算：
 \[
- R(a_1,\ldots,a_k)\star R(a_{k+1},\ldots,a_n)=R(a_1,\ldots,a_n).
+ P(a_1)=a_1,\qquad
+ P(a_1,\ldots,a_{n+1})=P(a_1,\ldots,a_n)\circ a_{n+1}.
 \]
-对 $k$ 归纳：$k=1$ 时由右结合形式的定义成立；$k>1$ 时，把左边前半部分写为 $a_1\star R(a_2,\ldots,a_k)$，利用结合律和归纳假设即得右边。
-
-再对总项数 $n$ 归纳。$n=1$ 时显然。任一括号方式最后一步都将前 $k$ 项与后 $n-k$ 项的结果相乘；由归纳假设，两部分分别等于它们的右结合形式，再由上式可知整个结果等于 $R(a_1,\ldots,a_n)$。若还满足交换律，可利用结合律把任意相邻两项括在一起并交换；任意排列由有限次相邻交换得到，所以结果与顺序无关。
+对元素个数作第二数学归纳。一个或两个元素时结论显然成立。\\
+假设对不超过 $n$ 个元素的任意加括号方式，结果都等于相应的标准乘积。\\
+任取 $n+1$ 个元素的一种加括号方式：其中 $1\le k\le n$。
+\[
+ P(a_1,\ldots,a_k)\circ P(a_{k+1},\ldots,a_{n+1}).
+\]
+若 $k=n$，这正是 $P(a_1,\ldots,a_{n+1})$。若 $k<n$，由标准乘积的递归定义及个数小于 $k$ 的结合律，上式等于
+\[
+ \begin{aligned}
+ &P(a_1,\ldots,a_k)\circ
+ \bigl(P(a_{k+1},\ldots,a_n)\circ a_{n+1}\bigr)\\
+ &\qquad=\bigl(P(a_1,\ldots,a_k)\circ P(a_{k+1},\ldots,a_n)\bigr)\circ a_{n+1}\\
+ &\qquad=P(a_1,\ldots,a_n)\circ a_{n+1}
+ =P(a_1,\ldots,a_{n+1}).
+ \end{aligned}
+\]
+其中三次变换分别用到了：标准乘积的递归定义、乘法结合律、归纳的广义乘法结合律。\\
+因此，任意加括号方式都得到同一个标准乘积，归纳完成。
 \end{proof}
 \begin{example}
 变换的合成满足结合律：对任意 $f,g,h\in T(M)$ 和 $x\in M$，
@@ -150,11 +203,33 @@ $M\times M$ 有 $n^2$ 个有序对，每个有序对的运算结果可独立选�
 \]
 但上一节的置换例子说明它未必可交换。
 \end{example}
-\begin{theorem}{有限项分配律}{}
-设 $\diamond$ 满足结合律，$\star$ 对 $\diamond$ 满足左分配律，则
+\begin{definition}{交换律}{}
+集合 $M$ 上的运算 $\circ$ 满足交换律，指对任意 $a,b\in M$ 有 $a\circ b=b\circ a$。
+\end{definition}
+\begin{example}
+整数减法不满足交换律，例如 $1-2\ne2-1$。
+\end{example}
+\begin{theorem}{广义交换律}{}
+若运算 $\circ$ 满足结合律和交换律，则任意有限个（至少一个）元素的运算结果与它们的排列顺序无关。
+\end{theorem}
+\begin{proof}
+利用结合律把任意相邻两项括在一起，再用交换律交换；任意排列都可由有限次相邻交换得到，故结果与顺序无关。
+\end{proof}
+\begin{definition}{分配律}{}
+设 $\circ$ 和 $\diamond$ 是集合 $M$ 上的两个运算。$\circ$ 对 $\diamond$ 的左、右分配律分别为
 \[
- a\star(b_1\diamond\cdots\diamond b_n)
- =(a\star b_1)\diamond\cdots\diamond(a\star b_n),\qquad n\ge1.
+ a\circ(b\diamond c)=(a\circ b)\diamond(a\circ c),\quad
+ (b\diamond c)\circ a=(b\circ a)\diamond(c\circ a),\qquad a,b,c\in M.
+\]
+\end{definition}
+\begin{example}
+在 $\Z$ 上取 $a\circ b=a+b$，$a\diamond b=ab$。这两个运算均封闭，但 $\circ$ 对 $\diamond$ 不满足左分配律：取 $a=b=c=1$，则 $1\circ(1\diamond1)=2$，而 $(1\circ1)\diamond(1\circ1)=4$。类似地，它也不满足右分配律。
+\end{example}
+\begin{theorem}{有限项分配律}{}
+设 $\diamond$ 满足结合律，$\circ$ 对 $\diamond$ 满足左分配律，则
+\[
+ a\circ(b_1\diamond\cdots\diamond b_n)
+ =(a\circ b_1)\diamond\cdots\diamond(a\circ b_n),\qquad n\ge1.
 \]
 右分配律有对应的结论。
 \end{theorem}
@@ -162,27 +237,36 @@ $M\times M$ 有 $n^2$ 个有序对，每个有序对的运算结果可独立选�
 $n=1$ 显然。假设结论对 $n$ 成立，对 $n+1$ 项先应用左分配律，再对前 $n$ 项应用归纳假设；结合律保证两边有限乘积的括号无歧义。右分配律的证明相同。
 \end{proof}
 \begin{example}
-在 $\R$ 上令 $a\star b=2a+3b$。它不满足交换律，因为 $1\star0=2\ne3=0\star1$；也不满足结合律，因为 $(0\star0)\star1=3\ne9=0\star(0\star1)$。
+在 $\R$ 上令 $a\circ b=2a+3b$。它不满足交换律，因为 $1\circ0=2\ne3=0\circ1$；也不满足结合律，因为 $(0\circ0)\circ1=3\ne9=0\circ(0\circ1)$。
 \end{example}
 % <<< END AUTO-GENERATED: 1.4 <<<
 
 \section{同态与同构}
 % >>> AUTO-GENERATED: 1.5 — DO NOT EDIT MANUALLY <<<
-\begin{definition}{同态与同构}{}
+\begin{definition}{同态}{}
 设 $(M,\star)$ 与 $(N,\diamond)$ 为代数系统。映射 $f\colon M\to N$ 若满足
 \[
  f(a\star b)=f(a)\diamond f(b)\qquad(a,b\in M),
 \]
-称为同态。双射同态称为同构；此时称两系统同构，记为 $(M,\star)\cong(N,\diamond)$。从系统到自身的同态、同构分别称为自同态、自同构。对于有多个运算的系统，需分别保持每一种对应的运算。
+称为同态。对于有多个运算的系统，需分别保持每一种对应的运算。
+\end{definition}
+\begin{definition}{同构}{}
+双射同态称为同构；此时称两系统同构，记为 $(M,\star)\cong(N,\diamond)$。
 \end{definition}
 \begin{remark}
-课件和教材将存在满同态的情形简称为两个系统“同态”。这里区分一般的同态映射与满同态；满射不是同态定义本身的要求。
+注意，同态和同构是相对于代数系统而言。我们在讨论同态和同构时候必须考虑具体的代数运算，尤其是同构：我们不能把两个集合之间的双射简单地叫做同构。比如下面这个例子：
 \end{remark}
+\begin{example}
+  $\mathbb{Z}$ 是整数集，$2\mathbb{Z}$ 是偶数集。$f: n \to 2n$ 并不是它们之间的同构。因为此处并没有指明相应的代数运算。
+\end{example}
+\begin{definition}{自同态与自同构}{}
+代数系统到自身的同态称为自同态，到自身的同构称为自同构。
+\end{definition}
 \begin{example}
 对数域 $F$ 和 $n\ge1$，行列式映射 $\det\colon(M_n(F),\cdot)\to(F,\cdot)$ 是满同态，因为 $\det(AB)=\det(A)\det(B)$，且 $\det\operatorname{diag}(a,1,\ldots,1)=a$。它一般不是同构，例如 $n\ge2$ 时不同的行列式为 $1$ 的矩阵有相同像。
 \end{example}
-\begin{theorem}{满同态传递运算律}{}
-若 $f\colon(M,\star)\to(N,\diamond)$ 是满同态，则 $\star$ 的结合律、交换律分别蕴含 $\diamond$ 的相应运算律。若 $f$ 同时保持另一对运算，则源系统中的左或右分配律也传递到目标系统。
+\begin{theorem}{满同态传递结合律与交换律}{}
+若 $f\colon(M,\star)\to(N,\diamond)$ 是满同态，则 $\star$ 满足结合律（交换律）时，$\diamond$ 也满足相应的结合律（交换律）。
 \end{theorem}
 \begin{proof}
 任取 $x,y,z\in N$，由满射可取原像 $a,b,c\in M$。若 $\star$ 满足结合律，则
@@ -190,7 +274,16 @@ $n=1$ 显然。假设结论对 $n$ 成立，对 $n+1$ 项先应用左分配律�
  (x\diamond y)\diamond z=f((a\star b)\star c)
  =f(a\star(b\star c))=x\diamond(y\diamond z).
 \]
-交换律同理。设另有运算 $\oplus,\boxplus$ 且 $f(a\oplus b)=f(a)\boxplus f(b)$；若源系统满足左分配律，则
+若 $\star$ 满足交换律，对同样取定的 $x,y$ 及其原像 $a,b$，有
+\[
+ x\diamond y=f(a\star b)=f(b\star a)=y\diamond x.
+\]
+\end{proof}
+\begin{theorem}{满同态传递分配律}{}
+设 $f\colon M\to N$ 是满射，并分别保持 $M$ 上的运算 $\star,\oplus$ 和 $N$ 上对应的运算 $\diamond,\boxplus$。若 $\star$ 对 $\oplus$ 满足左（右）分配律，则 $\diamond$ 对 $\boxplus$ 满足相应的左（右）分配律。
+\end{theorem}
+\begin{proof}
+任取 $x,y,z\in N$，由满射可取原像 $a,b,c\in M$。若源系统满足左分配律，则
 \[
  x\diamond(y\boxplus z)=f(a\star(b\oplus c))
  =f((a\star b)\oplus(a\star c))
@@ -198,20 +291,33 @@ $n=1$ 显然。假设结论对 $n$ 成立，对 $n+1$ 项先应用左分配律�
 \]
 右分配律的证明类似。
 \end{proof}
+\begin{remark}
+注意，此处若不要求满同态，则相应的运算律只能在像上的代数系统保证，而不能把适用范围扩大到整个陪域上的代数系统。
+\end{remark}
+\begin{remark}
+同态保持运算具有很好的性质，我们后面还会学到，群同态保证了把群的单位元映射到单位元，把逆元映射到逆元等良好性质。
+\end{remark}
 \begin{example}
 上述结论不能反向用于一般满同态。在 $\Z$ 上取减法，令单元素集 $\{0\}$ 的运算为 $0\diamond0=0$，则常值映射 $f(n)=0$ 是满同态，目标运算满足结合律，但整数减法不满足结合律：$(1-1)-1\ne1-(1-1)$。
 \end{example}
 \begin{theorem}{同构的基本性质}{}
-恒等映射是同构；同构的逆映射也是同构；同构映射的合成仍是同构。因此同构具有自反、对称、传递三种性质。
+同构具有自反、对称、传递三种性质。
 \end{theorem}
 \begin{proof}
-恒等映射显然是保持运算的双射。若 $f\colon M\to N$ 是同构，对 $x=f(a),y=f(b)$，有
+恒等映射是保持运算的双射，故同构具有自反性。
+
+若 $f\colon M\to N$ 是同构，对 $x=f(a),y=f(b)$，有
 \[
  f^{-1}(x\diamond y)=f^{-1}(f(a\star b))=a\star b=f^{-1}(x)\star f^{-1}(y),
 \]
-故 $f^{-1}$ 是同构。若 $g\colon N\to P$ 也是同构，则 $g\circ f$ 是双射，且
-$(g\circ f)(a\star b)=g(f(a)\diamond f(b))=g(f(a))\circledast g(f(b))$，故它也保持运算。
+故 $f^{-1}$ 是同构，从而同构具有对称性。
+
+若 $f\colon M\to N$、$g\colon N\to P$ 均为同构，则 $g\circ f$ 是双射，且
+$(g\circ f)(a\star b)=g(f(a)\diamond f(b))=g(f(a))\circledast g(f(b))$，故它也保持运算，同构具有传递性。
 \end{proof}
+\begin{remark}
+  同构具有非常好的代数性质。两个代数系统同构，一个系统的任何运算性质可以运用到另一个代数系统。所以对于特定的代数系统，我们只需要选取一个研究明白，其他性质便可以直接运用到与之同构的代数系统。例如数论里面的模 n 可逆剩余类乘法与部分有限群之间是同构的。
+\end{remark}
 \begin{example}
 $f\colon(\Z,+)\to(2\Z,+)$，$f(n)=2n$ 是同构：它保持加法，且每个偶数恰有一个整数原像。相对地，$x\mapsto x^2$ 虽保持实数乘法，却不是 $(\R,\cdot)$ 的自同构：它既不单射也不满射。
 \end{example}
@@ -222,22 +328,39 @@ $f\colon(\Z,+)\to(2\Z,+)$，$f(n)=2n$ 是同构：它保持加法，且每个偶
 
 \section{等价关系与集合的分类}
 % >>> AUTO-GENERATED: 1.6 — DO NOT EDIT MANUALLY <<<
-\begin{definition}{关系与等价关系}{}
-集合 $M$ 上的二元关系是笛卡尔积 $M\times M$ 的一个子集 $R$；$(a,b)\in R$ 记为 $aRb$。关系 $\sim$ 称为等价关系，若对任意 $a,b,c\in M$ 满足自反性 $a\sim a$、对称性 $a\sim b\Rightarrow b\sim a$ 和传递性 $a\sim b,\ b\sim c\Rightarrow a\sim c$。
+\begin{definition}{二元关系}{}
+集合 $M$ 上的二元关系是笛卡尔积 $M\times M$ 的一个子集 $R$；$(a,b)\in R$ 记为 $aRb$。
+\end{definition}
+\begin{definition}{等价关系}{}
+关系 $\sim$ 称为等价关系，若对任意 $a,b,c\in M$ 满足自反性 $a\sim a$、对称性 $a\sim b\Rightarrow b\sim a$ 和传递性 $a\sim b,\ b\sim c\Rightarrow a\sim c$。
 \end{definition}
 \begin{example}
 在 $\Z$ 上，$aRb\iff a\mid b$ 是关系，但不是等价关系：$2\mid6$ 而 $6\nmid2$，对称性不成立。相反，$aRb\iff a/b>0$ 没有对所有整数对给出确定判断，因为 $b=0$ 时表达式无定义，按此原式不能定义 $\Z$ 上的关系。
 \end{example}
-\begin{definition}{等价类与划分}{}
-对等价关系 $\sim$，$a$ 的等价类为 $[a]=\{x\in M:x\sim a\}$。$M$ 的一个划分是由非空子集组成的族，满足各子集两两不交且并集为 $M$。空集的唯一划分是空族。
+\begin{definition}{等价类}{}
+对等价关系 $\sim$，$a$ 的等价类为 $[a]=\{x\in M:x\sim a\}$。
 \end{definition}
-\begin{theorem}{等价关系与划分的对应}{}
-每个等价关系的不同等价类构成一个划分；反过来，每个划分通过“两个元素属于同一块”确定一个等价关系。这两个构造互为逆过程。
+\begin{definition}{划分}{}
+$M$ 的一个划分是由非空子集组成的族，满足各子集两两不交且并集为 $M$。空集的唯一划分是空族。
+\end{definition}
+\begin{theorem}{等价关系确定划分}{}
+集合上的等价关系的不同等价类构成该集合的一个划分。
 \end{theorem}
 \begin{proof}
 自反性给出 $a\in[a]$，所以所有等价类非空且覆盖 $M$。若 $[a]\cap[b]\ne\varnothing$，取 $c$ 属于交集，则 $c\sim a$、$c\sim b$，由对称性和传递性得 $a\sim b$。对任意 $x\in[a]$，有 $x\sim a\sim b$，故 $x\in[b]$；反向包含同理，故 $[a]=[b]$。
 
-反过来，若规定 $a\sim b$ 当且仅当 $a,b$ 同属一个划分块，则每个元素恰在一个块中，自反、对称均显然；若 $a,b$ 同块且 $b,c$ 同块，因两块都含 $b$，它们相同，故 $a,c$ 同块。由划分得到的等价类恰是原划分的各块；由等价类得到的关系也恰为原关系。
+\end{proof}
+\begin{theorem}{划分确定等价关系}{}
+集合的一个划分确定一个等价关系：两个元素等价，当且仅当它们属于同一个划分块。
+\end{theorem}
+\begin{proof}
+每个元素恰在一个块中，自反、对称均显然；若 $a,b$ 同块且 $b,c$ 同块，因两块都含 $b$，它们相同，故 $a,c$ 同块。
+\end{proof}
+\begin{corollary}{等价关系与划分的对应}{}
+由等价关系得到划分、由划分得到等价关系这两个构造互为逆过程。
+\end{corollary}
+\begin{proof}
+由划分得到的等价类恰是原划分的各块；由等价类得到的关系也恰为原关系。
 \end{proof}
 \begin{example}
 设 $n\ge1$，在 $\Z$ 上规定 $a\sim b\iff n\mid(a-b)$，称为模 $n$ 同余。因为 $n\mid0$，若 $n\mid(a-b)$ 则 $n\mid(b-a)$，而 $n\mid(a-b)$、$n\mid(b-c)$ 蕴含 $n\mid(a-c)$，所以这是等价关系。当 $n=4$ 时，等价类为
