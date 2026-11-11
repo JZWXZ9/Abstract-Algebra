@@ -7,12 +7,333 @@
 本章暂为目录框架，待后续课件补充后整理正文。
 \section{群的定义和初步性质}
 % >>> AUTO-GENERATED: 2.1 — DO NOT EDIT MANUALLY <<<
+% 本节对应课件 PDF 第 4--20 页。
+\begin{definition}{群}{}
+设 $G$ 是一个非空集合，$\circ$ 是 $G$ 上的一个代数运算。如果满足下列条件，则称 $G$ 对运算 $\circ$ 作成一个群：
+\begin{enumerate}
+  \item \textbf{结合律}：对任意 $a,b,c\in G$，有 $(a\circ b)\circ c=a\circ(b\circ c)$；
+  \item \textbf{左单位元}：存在 $e\in G$，对每个 $a\in G$，都有 $e\circ a=a$；
+  \item \textbf{左逆元}：对每个 $a\in G$，存在 $a^{-1}\in G$，使 $a^{-1}\circ a=e$。
+\end{enumerate}
+\end{definition}
+
+\begin{definition}{交换群}{}
+如果群 $G$ 中任意两个元素 $a,b$ 都满足 $a\circ b=b\circ a$，则称 $G$ 为交换群（可换群）或 Abel 群；否则称为非交换群（非可换群）或非 Abel 群。
+\end{definition}
+
+\begin{definition}{群的阶}{}
+一个群 $G$ 中包含元素的个数为 $n$，则称 $n$ 为群 $G$ 的阶，记为 $|G|=n$。无限群的阶称为无限。
+\end{definition}
+
+以下常将群的运算称为乘法，并将 $a\circ b$ 记作 $ab$。
+
+\begin{theorem}{群的单位元}{}
+群 $G$ 的左单位元也是右单位元，并且是唯一的。
+\end{theorem}
+\begin{proof}
+设 $e$ 是 $G$ 的左单位元。任取 $a\in G$，设 $a^{-1}$ 是 $a$ 的左逆元，再取 $b\in G$ 使 $ba^{-1}=e$。由结合律，
+\[
+ ae=e(ae)=(ba^{-1})(ae)=b(a^{-1}a)e=bee
+ =be=b(a^{-1}a)=(ba^{-1})a=ea=a.
+\]
+所以 $e$ 也是右单位元。若 $e'$ 是另一个左单位元，则 $e'=e'e=e$，因此单位元唯一。
+\end{proof}
+
+\begin{theorem}{群中元素的逆元}{}
+群 $G$ 中任意元素 $a$ 的左逆元 $a^{-1}$ 也是右逆元，并且唯一。
+\end{theorem}
+\begin{proof}
+任取 $a\in G$，设 $a^{-1}a=e$，并取 $b\in G$ 使 $ba^{-1}=e$。由结合律及单位元的性质，
+\[
+ aa^{-1}=e(aa^{-1})=(ba^{-1})(aa^{-1})
+ =b(a^{-1}a)a^{-1}=ba^{-1}=e.
+\]
+因此 $a^{-1}$ 也是右逆元。若 $c$ 是 $a$ 的另一个左逆元，即 $ca=e$，则
+\[
+ c=ce=c(aa^{-1})=(ca)a^{-1}=ea^{-1}=a^{-1}.
+\]
+故逆元唯一。
+\end{proof}
+
+\begin{corollary}{群的消去律}{}
+在群中消去律成立，即
+\[
+ ab=ac\Longrightarrow b=c,\qquad ba=ca\Longrightarrow b=c.
+\]
+\end{corollary}
+\begin{proof}
+若 $ab=ac$，在等式两边左乘 $a^{-1}$ 得 $b=c$；若 $ba=ca$，在等式两边右乘 $a^{-1}$ 也得 $b=c$。
+\end{proof}
+
+\begin{definition}{半群与幺半群}{}
+设 $S$ 是一个非空集合，如果它有一个满足结合律的代数运算，则称 $S$ 是一个半群。
+
+如果半群 $S$ 中有元素 $e$，对任意 $a\in S$ 都有 $ea=a$，则称 $e$ 为半群 $S$ 的左单位元；如果 $e'\in S$ 满足对任意 $a\in S$ 都有 $ae'=a$，则称 $e'$ 为右单位元。
+
+如果一个半群有单位元，即某个元素既是左单位元又是右单位元，则称它为有单位元的半群，或简称幺半群（monoid）。
+\end{definition}
+
+半群如果既有左单位元又有右单位元，则二者相等，它就是半群的唯一单位元。
+
+\begin{theorem}{半群作成群的条件}{}
+设 $G$ 是一个半群。则 $G$ 作成群的充要条件是：对 $G$ 中任意元素 $a,b$，方程
+\[
+ ax=b,\qquad ya=b
+\]
+在 $G$ 中都有解。
+\end{theorem}
+\begin{proof}
+\textbf{必要性：}若 $G$ 是群，则对任意 $a,b\in G$，方程 $ax=b$ 和 $ya=b$ 分别有解 $x=a^{-1}b$ 和 $y=ba^{-1}$。
+
+\textbf{充分性：}假设两个方程对任意 $a,b\in G$ 都有解。先固定一个元素 $b\in G$，由方程 $yb=b$ 有解，取 $e\in G$ 使 $eb=b$。对任意 $a\in G$，由方程 $bx=a$ 有解，可取 $c\in G$ 使 $bc=a$。于是
+\[
+ ea=e(bc)=(eb)c=bc=a,
+\]
+故 $e$ 是 $G$ 的左单位元。又对每个 $a\in G$，方程 $ya=e$ 有解，故每个元素都有左逆元。结合半群的结合律，$G$ 作成群。
+\end{proof}
+
+\begin{corollary}{有限半群作成群的条件}{}
+有限半群 $G$ 作成群的充要条件是，$G$ 中左、右两个消去律都成立。
+\end{corollary}
+\begin{proof}
+\textbf{必要性：}群中的左、右消去律均成立。
+
+\textbf{充分性：}设 $G=\{a_1,\ldots,a_n\}$，并任取 $a,b\in G$。由左消去律，$aa_1,\ldots,aa_n$ 两两不同；它们都是 $G$ 的元素，因此恰好遍历 $G$。故 $ax=b$ 在 $G$ 中有解。同理，右消去律保证 $ya=b$ 在 $G$ 中有解。由上一条定理，$G$ 作成群。
+\end{proof}
+
+如果一个交换群的运算用加号 $+$ 表示，常称其为加群；单位元用 $0$ 表示，并称为零元；元素 $a$ 的逆元用 $-a$ 表示，并称为 $a$ 的负元。
 % <<< END AUTO-GENERATED: 2.1 <<<
 \section{群中元素的阶}
 % >>> AUTO-GENERATED: 2.2 — DO NOT EDIT MANUALLY <<<
+% 本节对应课件 PDF 第 22--29 页。
+对 $a\in G$ 和正整数 $n$，规定
+\[
+ a^0=e,\qquad a^n=\underbrace{aa\cdots a}_{n\text{ 个}},\qquad
+ a^{-n}=(a^{-1})^n=\underbrace{a^{-1}a^{-1}\cdots a^{-1}}_{n\text{ 个}}.
+\]
+对任意整数 $m,n$，有 $a^ma^n=a^{m+n}$、$(a^m)^n=a^{mn}$。
+
+\begin{definition}{群中元素的阶}{}
+设 $a$ 是群 $G$ 中的一个元素，使 $a^n=e$ 的最小正整数 $n$ 称为元素 $a$ 的阶。如果这样的正整数不存在，则称 $a$ 的阶为无限。元素 $a$ 的阶记为 $|a|$。
+\end{definition}
+
+\begin{theorem}{有限群中元素的阶}{}
+有限群中每个元素的阶均有限。
+\end{theorem}
+\begin{proof}
+设 $|G|=n$，任取 $a\in G$。在 $n+1$ 个元素 $a,a^2,\ldots,a^{n+1}$ 中必有两个相等，设 $a^s=a^t$，其中 $1\le t<s\le n+1$。两边乘以 $a^{-t}$，得 $a^{s-t}=e$，其中 $s-t>0$，因此 $a$ 的阶有限。
+\end{proof}
+
+\begin{definition}{周期群、无扭群与混合群}{}
+若群 $G$ 中每个元素的阶都有限，则称 $G$ 为周期群；若 $G$ 中除单位元 $e$ 外，其余元素的阶均无限，则称 $G$ 为无扭群；既不是周期群又不是无扭群的群称为混合群。
+\end{definition}
+
+\begin{theorem}{元素的阶与整数次幂}{}
+设群 $G$ 中元素 $a$ 的阶是 $n$，则对任意整数 $m$，
+\[
+ a^m=e\iff n\mid m.
+\]
+\end{theorem}
+\begin{proof}
+设 $|a|=n$。若 $a^m=e$，将整数 $m$ 除以 $n$，写为 $m=nq+r$，其中 $0\le r<n$。于是
+\[
+ e=a^m=a^{nq+r}=(a^n)^q a^r=a^r.
+\]
+由 $n$ 是使 $a^n=e$ 的最小正整数，必有 $r=0$，故 $n\mid m$。
+
+反之，若 $n\mid m$，令 $m=nq$，则 $a^m=(a^n)^q=e$。
+\end{proof}
+
+\begin{theorem}{元素幂的阶}{}
+若群中元素 $a$ 的阶是 $n$，则
+\[
+ |a^k|=\frac{n}{(k,n)},
+\]
+其中 $k$ 为任意整数，$(k,n)$ 为 $k$ 与 $n$ 的正的最大公因数。
+\end{theorem}
+\begin{proof}
+设 $d=(k,n)$，$n=dn_1$，$k=dk_1$，则 $(n_1,k_1)=1$。由于 $|a|=n$，
+\[
+ (a^k)^{n_1}=a^{kn_1}=a^{k_1n}=(a^n)^{k_1}=e.
+\]
+如果对正整数 $r$ 有 $(a^k)^r=e$，则 $a^{kr}=e$，由上一条定理得 $n\mid kr$，从而 $n_1\mid k_1r$。由于 $(n_1,k_1)=1$，故 $n_1\mid r$。因此 $a^k$ 的阶是 $n_1=n/(k,n)$。
+\end{proof}
+
+\begin{corollary}{}{}
+在群中若 $|a|=st$，则 $|a^s|=t$，其中 $s,t$ 是正整数。
+\end{corollary}
+\begin{proof}
+由元素幂的阶的公式，$|a^s|=st/(s,st)=st/s=t$。
+\end{proof}
+
+\begin{corollary}{}{}
+在群中若 $|a|=n$，则 $|a^k|=n\iff(k,n)=1$，其中 $k$ 为整数。
+\end{corollary}
+\begin{proof}
+由 $|a^k|=n/(k,n)$ 即得。
+\end{proof}
+
+\begin{theorem}{可交换元素乘积的阶}{}
+群中 $a$ 的阶为 $m$、$b$ 的阶为 $n$。当 $ab=ba$ 且 $(m,n)=1$ 时，有
+\[
+ |ab|=mn=|a|\,|b|.
+\]
+\end{theorem}
+\begin{proof}
+因为 $ab=ba$，且 $a^m=b^n=e$，所以
+\[
+ (ab)^{mn}=a^{mn}b^{mn}=e.
+\]
+若正整数 $s$ 满足 $(ab)^s=e$，则
+\[
+ e=((ab)^s)^m=a^{sm}b^{sm}=b^{sm}.
+\]
+由 $|b|=n$ 得 $n\mid sm$，再由 $(m,n)=1$ 得 $n\mid s$。同理 $m\mid s$，故 $mn\mid s$。因此 $ab$ 的阶为 $mn$。
+\end{proof}
+
+\begin{theorem}{交换群中元素的最大阶}{}
+设 $G$ 为交换群，且 $G$ 中所有元素有最大阶 $m$，则 $G$ 中每个元素的阶都是 $m$ 的因数，从而群 $G$ 中每个元素均满足方程 $x^m=e$。
+\end{theorem}
+\begin{proof}
+取 $a\in G$ 使 $|a|=m$，再任取 $b\in G$，设 $|b|=n$。若 $n\nmid m$，则存在素数 $p$，使得
+\[
+ m=p^k m_1,\quad n=p^t n_1,\quad p\nmid m_1,\quad t>k.
+\]
+由元素幂的阶的公式，$|a^{p^k}|=m_1$，$|b^{n_1}|=p^t$。因为 $(m_1,p^t)=1$ 且 $G$ 是交换群，由可交换元素乘积的阶的定理，
+\[
+ |a^{p^k}b^{n_1}|=m_1p^t>m_1p^k=m,
+\]
+这与 $m$ 是最大阶矛盾。故 $n\mid m$，于是由元素的阶与整数次幂的定理，$b^m=e$。
+\end{proof}
 % <<< END AUTO-GENERATED: 2.2 <<<
 \section{子群}
 % >>> AUTO-GENERATED: 2.3 — DO NOT EDIT MANUALLY <<<
+% 本节对应课件 PDF 第 32--40 页。
+\begin{definition}{子群}{}
+设 $G$ 是一个群，$H$ 是 $G$ 的一个非空子集。如果 $H$ 本身对 $G$ 的乘法也作成一个群，则称 $H$ 为群 $G$ 的一个子群，记为 $H\le G$。
+
+当 $|G|>1$ 时，$\{e\}$ 与 $G$ 称为 $G$ 的平凡子群；其他子群称为非平凡子群。
+\end{definition}
+
+\begin{remark}
+课件将上述其他子群也称为“真子群”。常用约定中，真子群指不等于 $G$ 的子群；当 $|G|>1$ 时，$\{e\}$ 也是 $G$ 的真子群，但它是平凡子群。
+\end{remark}
+
+\begin{theorem}{子群的单位元与逆元}{}
+设 $G$ 是群，$H\le G$。则子群 $H$ 的单位元就是群 $G$ 的单位元，$H$ 中元素 $a$ 在 $H$ 中的逆元就是 $a$ 在群 $G$ 中的逆元。
+\end{theorem}
+\begin{proof}
+设 $e'$ 是 $H$ 的单位元，$e$ 是 $G$ 的单位元。由于 $e'e'=e'=e'e$，由 $G$ 中的消去律得 $e'=e$。
+
+对任意 $a\in H$，设 $a'$ 是 $a$ 在 $H$ 中的逆元，$a^{-1}$ 是 $a$ 在 $G$ 中的逆元。由 $a'a=e=a^{-1}a$ 和消去律得 $a'=a^{-1}$。
+\end{proof}
+
+\begin{theorem}{子群判别法}{}
+群 $G$ 的一个非空子集 $H$ 作成子群的充要条件是：
+\begin{enumerate}
+  \item $a,b\in H\Longrightarrow ab\in H$；
+  \item $a\in H\Longrightarrow a^{-1}\in H$。
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\textbf{必要性：}若 $H\le G$，则 $H$ 对群乘法封闭；由上一条定理，$H$ 中元素在 $G$ 中的逆元也属于 $H$。
+
+\textbf{充分性：}由条件 1，群 $G$ 的运算限制在 $H$ 上是一个代数运算，并且满足结合律。由于 $H$ 非空，取 $a\in H$；由条件 2 有 $a^{-1}\in H$，再由条件 1 得 $aa^{-1}=e\in H$。因此 $H$ 有单位元，且每个元素的逆元都在 $H$ 中，故 $H\le G$。
+\end{proof}
+
+\begin{theorem}{子群判别法}{}
+群 $G$ 的一个非空子集 $H$ 作成子群的充要条件是
+\[
+ a,b\in H\Longrightarrow ab^{-1}\in H.
+\]
+该条件也可以写成 $a,b\in H\Longrightarrow a^{-1}b\in H$。
+\end{theorem}
+\begin{proof}
+\textbf{必要性：}若 $H\le G$，则对任意 $a,b\in H$，有 $b^{-1}\in H$，故 $ab^{-1}\in H$。
+
+\textbf{充分性：}设对任意 $a,b\in H$ 都有 $ab^{-1}\in H$。取 $a\in H$，则 $aa^{-1}=e\in H$，从而 $ea^{-1}=a^{-1}\in H$。再对任意 $a,b\in H$，由于 $b^{-1}\in H$，有
+\[
+ a(b^{-1})^{-1}=ab\in H.
+\]
+由上一条子群判别法，$H\le G$。
+\end{proof}
+
+群 $G$ 的非空有限子集 $H$ 作成子群的充要条件是，$H$ 对 $G$ 的乘法封闭，即 $a,b\in H\Longrightarrow ab\in H$。
+
+\begin{definition}{中心元素与无中心群}{}
+设 $G$ 是一个群，若 $a\in G$ 与 $G$ 中每个元素都可换，则称 $a$ 是群 $G$ 的一个中心元素。若 $G$ 的中心元素只有单位元 $e$，则称 $G$ 为无中心群。
+\end{definition}
+
+\begin{theorem}{群的中心}{}
+群 $G$ 的中心元素作成的集合 $C(G)$ 是 $G$ 的一个子群，称为群 $G$ 的中心。
+\end{theorem}
+\begin{proof}
+由于 $e\in C(G)$，故 $C(G)$ 非空。任取 $a,b\in C(G)$ 和 $x\in G$，由 $ax=xa$、$bx=xb$，可得
+\[
+ (ab)x=x(ab),\qquad a^{-1}x=xa^{-1}.
+\]
+因此 $ab,a^{-1}\in C(G)$。由子群判别法，$C(G)\le G$。
+\end{proof}
+
+\begin{definition}{群的子集的乘积与逆}{}
+设 $A,B$ 是群 $G$ 的任意两个非空子集，规定
+\[
+ AB=\{ab\mid a\in A,\ b\in B\},\qquad
+ A^{-1}=\{a^{-1}\mid a\in A\},
+\]
+分别称 $AB$ 为 $A$ 与 $B$ 的乘积，$A^{-1}$ 为 $A$ 的逆。
+\end{definition}
+
+对群的任意三个非空子集 $A,B,C$，有
+\[
+ (AB)C=A(BC),\quad A(B\cup C)=AB\cup AC,\quad
+ (AB)^{-1}=B^{-1}A^{-1},\quad (A^{-1})^{-1}=A.
+\]
+
+\begin{corollary}{}{}
+设 $H$ 是群 $G$ 的一个非空子集，则
+\[
+ H\le G\iff HH=H\text{ 且 }H^{-1}=H.
+\]
+\end{corollary}
+\begin{proof}
+\textbf{必要性：}若 $H\le G$，则 $HH=H$。又若 $a\in H$，则 $a^{-1}\in H$，从而 $H^{-1}=H$。
+
+\textbf{充分性：}若 $HH=H$，则 $H$ 对乘法封闭。又由 $H^{-1}=H$，对每个 $a\in H$，都有 $a^{-1}\in H$。由子群判别法，$H\le G$。
+\end{proof}
+
+\begin{corollary}{}{}
+设 $H$ 是群 $G$ 的一个非空子集，则
+\[
+ H\le G\iff HH^{-1}=H.
+\]
+特别地，若 $H$ 是群 $G$ 的一个非空有限子集，则 $H\le G\iff HH=H$。
+\end{corollary}
+\begin{proof}
+若 $H\le G$，则 $H^{-1}=H$ 且 $HH=H$，故 $HH^{-1}=H$。反之，若 $HH^{-1}=H$，则对任意 $a,b\in H$，有 $ab^{-1}\in H$，由子群判别法得 $H\le G$。
+
+若 $H$ 非空且有限，则 $HH=H$ 蕴含 $H$ 对乘法封闭，故由有限子群判别法有 $H\le G$；反向仍由 $H\le G$ 蕴含 $HH=H$。
+\end{proof}
+
+\begin{theorem}{子群的乘积}{}
+设 $H,K$ 是群 $G$ 的两个子群，则
+\[
+ HK\le G\iff HK=KH.
+\]
+\end{theorem}
+\begin{proof}
+\textbf{必要性：}若 $HK\le G$，则 $(HK)^{-1}=HK$。由于 $H^{-1}=H$、$K^{-1}=K$，又有
+\[
+ (HK)^{-1}=K^{-1}H^{-1}=KH,
+\]
+所以 $HK=KH$。
+
+\textbf{充分性：}若 $HK=KH$，利用 $HH=H$、$KK=K$，得
+\[
+ (HK)(HK)^{-1}=HKKH=HKH=HHK=HK.
+\]
+由上一条推论，$HK\le G$。
+\end{proof}
 % <<< END AUTO-GENERATED: 2.3 <<<
 \section{循环群}
 % >>> AUTO-GENERATED: 2.4 — DO NOT EDIT MANUALLY <<<
