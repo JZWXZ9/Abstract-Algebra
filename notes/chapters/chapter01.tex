@@ -243,6 +243,7 @@ $n=1$ 显然。假设结论对 $n$ 成立，对 $n+1$ 项先应用左分配律�
 
 \section{同态与同构}
 % >>> AUTO-GENERATED: 1.5 — DO NOT EDIT MANUALLY <<<
+同构与同态是抽象代数里面较深刻的概念。然而目前我们连抽象代数里面最基本的代数结构————群都没有接触到，所以在这里学习未免会显得有些抽象。笔者认为，如果目前觉得这个概念晦涩难懂，可以先放一放，暂时不必深究。等后面学习到群同态、群同构等定理的时候再回来看看，可能会更加深刻。
 \begin{definition}{同态}{}
 设 $(M,\star)$ 与 $(N,\diamond)$ 为代数系统。映射 $f\colon M\to N$ 若满足
 \[
@@ -328,6 +329,7 @@ $f\colon(\Z,+)\to(2\Z,+)$，$f(n)=2n$ 是同构：它保持加法，且每个偶
 
 \section{等价关系与集合的分类}
 % >>> AUTO-GENERATED: 1.6 — DO NOT EDIT MANUALLY <<<
+这一部分同样在离散数学里面学过。在这里只是做简单回顾，掌握一些基本概念即可。
 \begin{definition}{二元关系}{}
 集合 $M$ 上的二元关系是笛卡尔积 $M\times M$ 的一个子集 $R$；$(a,b)\in R$ 记为 $aRb$。
 \end{definition}
@@ -335,7 +337,7 @@ $f\colon(\Z,+)\to(2\Z,+)$，$f(n)=2n$ 是同构：它保持加法，且每个偶
 关系 $\sim$ 称为等价关系，若对任意 $a,b,c\in M$ 满足自反性 $a\sim a$、对称性 $a\sim b\Rightarrow b\sim a$ 和传递性 $a\sim b,\ b\sim c\Rightarrow a\sim c$。
 \end{definition}
 \begin{example}
-在 $\Z$ 上，$aRb\iff a\mid b$ 是关系，但不是等价关系：$2\mid6$ 而 $6\nmid2$，对称性不成立。相反，$aRb\iff a/b>0$ 没有对所有整数对给出确定判断，因为 $b=0$ 时表达式无定义，按此原式不能定义 $\Z$ 上的关系。
+在 $\Z$ 上，$aRb\iff a\mid b$ 是关系，（此处定义 \( a \mid b \)表示 a 能够被 b 整除）但不是等价关系：$2\mid6$ 而 $6\nmid2$，对称性不成立。$aRb\iff a/b>0$ 没有对所有整数对给出确定判断，因为 $b=0$ 时表达式无定义，按此原式不能定义 $\Z$ 上的关系。
 \end{example}
 \begin{definition}{等价类}{}
 对等价关系 $\sim$，$a$ 的等价类为 $[a]=\{x\in M:x\sim a\}$。
@@ -350,6 +352,9 @@ $M$ 的一个划分是由非空子集组成的族，满足各子集两两不交�
 自反性给出 $a\in[a]$，所以所有等价类非空且覆盖 $M$。若 $[a]\cap[b]\ne\varnothing$，取 $c$ 属于交集，则 $c\sim a$、$c\sim b$，由对称性和传递性得 $a\sim b$。对任意 $x\in[a]$，有 $x\sim a\sim b$，故 $x\in[b]$；反向包含同理，故 $[a]=[b]$。
 
 \end{proof}
+\begin{remark}
+相对于集合的划分的概念，等价关系的定义里对称性和传递性保证了两个类有交集必定相等，而自反性保证了每一个元素必定属于一个类。
+\end{remark}
 \begin{theorem}{划分确定等价关系}{}
 集合的一个划分确定一个等价关系：两个元素等价，当且仅当它们属于同一个划分块。
 \end{theorem}
@@ -360,7 +365,7 @@ $M$ 的一个划分是由非空子集组成的族，满足各子集两两不交�
 由等价关系得到划分、由划分得到等价关系这两个构造互为逆过程。
 \end{corollary}
 \begin{proof}
-由划分得到的等价类恰是原划分的各块；由等价类得到的关系也恰为原关系。
+根据定理 1.14 和 1.15 不难得出
 \end{proof}
 \begin{example}
 设 $n\ge1$，在 $\Z$ 上规定 $a\sim b\iff n\mid(a-b)$，称为模 $n$ 同余。因为 $n\mid0$，若 $n\mid(a-b)$ 则 $n\mid(b-a)$，而 $n\mid(a-b)$、$n\mid(b-c)$ 蕴含 $n\mid(a-c)$，所以这是等价关系。当 $n=4$ 时，等价类为
@@ -373,6 +378,6 @@ $M$ 的一个划分是由非空子集组成的族，满足各子集两两不交�
 在 $\R$ 上，$aRb\iff ab\ge0$ 具有自反性和对称性，但不具有传递性：$1R0$、$0R(-1)$，而 $1\not R(-1)$。
 \end{example}
 \begin{example}
-在 $\Z$ 上定义 $aRb\iff4\mid(a+b)$。该关系具有对称性，但不是等价关系：$4\nmid(1+1)$，所以不自反；此外 $1R7$、$7R5$，但 $1\not R5$，所以也不传递。
+在 $\Z$ 上定义 $aRb\iff4\mid(a+b)$。该关系具有对称性，但不是等价关系：$4\nmid(1+1)$，所以不自反；此外 $1R7$、$7R5$，但 $(1, 5) \notin R$，所以也不传递。
 \end{example}
 % <<< END AUTO-GENERATED: 1.6 <<<
